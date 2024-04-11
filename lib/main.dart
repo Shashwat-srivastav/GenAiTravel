@@ -5,6 +5,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gen_ai_travel/listen.dart';
+import 'package:gen_ai_travel/schedule.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -40,13 +42,13 @@ class HomeT extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(child: 
     Scaffold(
-      //  floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Get.to(Listening());
-      //   },
-      //   backgroundColor: Colors.blue[100],
-      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      // ).pLTRB(0, 0,MediaQuery.of(context).size.width*0.4, 0),
+       floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(Scheduler());
+        },
+        backgroundColor: Colors.blue[100],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      ).pLTRB(0, 0,MediaQuery.of(context).size.width*0.4, 0),
       bottomNavigationBar: BottomNavigationBar(landscapeLayout: BottomNavigationBarLandscapeLayout.centered,backgroundColor: Color.fromRGBO(21, 27, 35, 1),elevation: 0,items: [BottomNavigationBarItem(icon: Icon(Icons.home),label: "home",tooltip: "hey"),
           BottomNavigationBarItem(icon: Icon(Icons.pin_drop_outlined),label: "pin"),
            BottomNavigationBarItem(
@@ -60,11 +62,14 @@ class HomeT extends StatelessWidget {
         
         children: [
            Container(
-              height: MediaQuery.of(context).size.height * 1,
-              child: Image.asset(
-                "lib/assets/backgroundimg.jpeg",
-                fit: BoxFit.cover,
-              )),
+            height: MediaQuery.of(context).size.height * 1,
+            width: MediaQuery.of(context).size.height * 1,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Color(0xff0d4690), Color(0xff7e8eaf)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter)),
+          ),
               //-------------top name------------------------------------------
               "Hi ".text.white.minFontSize(24).make().p(15),
               "Plan the Best Trip Together".text.white.minFontSize(40).make().pLTRB(10, 50, 0, 0),
