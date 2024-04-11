@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple.withOpacity(0.4)),
         useMaterial3: true,
       ),
-      home:  HomeT(),
+      home:  Listening(),
     );
   }
 }
