@@ -9,6 +9,7 @@ import 'package:gen_ai_travel/listen.dart';
 import 'package:gen_ai_travel/schedule.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
 
 void main() {
@@ -28,15 +29,34 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple.withOpacity(0.4)),
         useMaterial3: true,
       ),
-      home:  Listening(),
+      home:  HomeT(),
     );
   }
 }
 
 
 
-class HomeT extends StatelessWidget {
+class HomeT extends StatefulWidget {
   const HomeT({super.key});
+
+  @override
+  State<HomeT> createState() => _HomeTState();
+}
+
+class _HomeTState extends State<HomeT> {
+
+
+
+  Future getWeatherData() async {
+    var response = await http
+        .get(Uri.https('api.openweathermap.org', '/data/2.5/weather', {
+      'q': "NOIDA"+ "",
+      'appid': 'edfa51a4ff3946732f60307189d4da34',
+      'units': 'metric'
+    }));
+    
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +64,20 @@ class HomeT extends StatelessWidget {
     Scaffold(
        floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(Scheduler());
+          Get.to(Listening());
         },
         backgroundColor: Colors.blue[100],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      ).pLTRB(0, 0,MediaQuery.of(context).size.width*0.4, 0),
-      bottomNavigationBar: BottomNavigationBar(landscapeLayout: BottomNavigationBarLandscapeLayout.centered,backgroundColor: Color.fromRGBO(21, 27, 35, 1),elevation: 0,items: [BottomNavigationBarItem(icon: Icon(Icons.home),label: "home",tooltip: "hey"),
-          BottomNavigationBarItem(icon: Icon(Icons.pin_drop_outlined),label: "pin"),
-           BottomNavigationBarItem(
-              icon: Icon(Icons.mic_none_outlined), label: "mic"),
-              //  BottomNavigationBarItem(
-              // icon: Icon(Icons.person_4_sharp), label: "profile"),
+      ),
+      // bottomNavigationBar: BottomNavigationBar(landscapeLayout: BottomNavigationBarLandscapeLayout.centered,backgroundColor: Color.fromRGBO(21, 27, 35, 1),elevation: 0,items: [BottomNavigationBarItem(icon: Icon(Icons.home),label: "home",tooltip: "hey"),
+      //     BottomNavigationBarItem(icon: Icon(Icons.pin_drop_outlined),label: "pin"),
+      //      BottomNavigationBarItem(
+      //         icon: Icon(Icons.mic_none_outlined), label: "mic"),
+      //         //  BottomNavigationBarItem(
+      //         // icon: Icon(Icons.person_4_sharp), label: "profile"),
            
 
-        ],),
+      //   ],),
       body: Stack(
         
         children: [
@@ -204,9 +224,9 @@ class HomeT extends StatelessWidget {
                           begin: Alignment.topCenter,end: Alignment.bottomCenter)
                         ),
                        
-                      )
+                      ).p(2)
                     ],
-                  ).pLTRB(5, MediaQuery.of(context).size.height*0.50, 5, 0)
+                  ).pLTRB(5, MediaQuery.of(context).size.height*0.52, 5, 0)
                 ],
               ),
             ),

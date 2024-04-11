@@ -1,4 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+
     <application
         android:label="gen_ai_travel"
         android:name="${applicationName}"
@@ -38,7 +45,9 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <!-- <action android:name="android.speech.RecognitionService" /> -->
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+    
 </manifest>

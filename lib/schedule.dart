@@ -40,7 +40,7 @@ class Scheduler extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
-                "Can You Show me Vacation Options for a trip to sea ?".text.white.minFontSize(42).make(),
+                "Can You Show me Vacation Options for a trip to sea ?".text.white.minFontSize(36).make(),
                 Row(
                   children: [
                  ClipRRect(
@@ -94,7 +94,7 @@ class Scheduler extends StatelessWidget {
                 ],),
             
             // ---------------------------------------------------------------------------------
-                 "Step 1 :  Choose the dates for the trip :".text.minFontSize(30).color(Colors.white.withOpacity(0.4)).make().p(10),
+                 "Step 1 :  Choose the dates for the trip :".text.minFontSize(24).color(Colors.white.withOpacity(0.4)).make().p(10),
             
 
             Row(
@@ -170,7 +170,7 @@ class Scheduler extends StatelessWidget {
                       ),
                     ),
                   ).p(10),
-               ).pLTRB(0, 10, 0, 0),
+               ).pLTRB(0, MediaQuery.of(context).size.height*0.13, 0, 0),
                ElevatedButton(onPressed: (){
                 Get.to(Book());
                }, child: "Next".text.make()),

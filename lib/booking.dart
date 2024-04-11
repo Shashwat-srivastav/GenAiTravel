@@ -133,23 +133,7 @@ class _BookState extends State<Book> {
                     ),child: Image.asset("lib/assets/image.jpg",scale: 0.1,fit: BoxFit.cover,)).pLTRB(0,0,10,10);
                 })
               ),
-              // TextField(
-              //                   cursorColor: Colors.white,
-              //                   decoration: InputDecoration(
-              //   filled: true,
-              //   fillColor: Color.fromRGBO(166, 194, 229, 0.8),
-              //   labelStyle:
-              //       TextStyle(color: Colors.white, fontSize: 20),
-              //   labelText: "Start",
-              //   enabledBorder: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //       borderSide: BorderSide(
-              //           color: Colors.white.withOpacity(0.3))),
-              //   focusedBorder: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //       borderSide: BorderSide(
-              //           color: Colors.white.withOpacity(0.3)))),
-              //                 ).p(10),
+
 
               "Add contact".text.color(Colors.white.withOpacity(0.5)).make(),
               IconButton(onPressed: (){}, icon: Icon(Icons.add),color: Colors.white,),
@@ -343,7 +327,7 @@ class _BookState extends State<Book> {
                       ),
                     ),
                   ).p(10),
-                ).pLTRB(0, 10, 0, 0),
+                ).pLTRB(0, MediaQuery.of(context).size.height*0.075, 0, 0),
               ),
               ElevatedButton(onPressed: () {}, child: "Next".text.make()),
             ],

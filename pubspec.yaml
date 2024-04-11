@@ -39,6 +39,8 @@ dependencies:
   get: ^4.6.6
   velocity_x: ^3.6.0
   table_calendar: ^3.0.8
+  speech_to_text: ^6.6.1
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
