@@ -48,6 +48,9 @@ class _ListeningState extends State<Listening> {
   }
 
 
+  final myController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -100,17 +103,44 @@ class _ListeningState extends State<Listening> {
                   height: MediaQuery.of(context).size.height*0.83,
                   width: MediaQuery.of(context).size.width,
                  
-                  child: Text(
+                  child: 
+                  
+                  TextField(
+                    maxLines: 40,
+                    controller: TextEditingController(
+                      text: _lastWords
                     
-                    _speechToText.isListening
-                        ? '$_lastWords'
+                    ),
+                    onChanged: (value) {
                       
+                      // setState(() {
+                        _lastWords = value;
+                      // });
+                    },
+                    style: TextStyle(fontSize: 36,fontWeight: FontWeight.w300,color: Colors.white54),
+                    
+                    decoration: InputDecoration(
+                    helperText: _speechToText.isListening  ? '$_lastWords'
                         : _speechEnabled
                             ? 'Tap the microphone to start listening...'
                             : 'Speech not available',
-                            style: TextStyle(color: Colors.white,fontSize: 32,fontWeight: FontWeight.w200),
-                  ).pLTRB(50, 150, 10, 0),
-                ).p(25),
+
+                  ),).pLTRB(50, 150, 10, 0),
+                  ),
+                  
+                  
+                  
+                //   Text(
+                    
+                //     _speechToText.isListening
+                //         ? '$_lastWords'
+                      
+                //         : _speechEnabled
+                //             ? 'Tap the microphone to start listening...'
+                //             : 'Speech not available',
+                //             style: TextStyle(color: Colors.white,fontSize: 32,fontWeight: FontWeight.w200),
+                //   ).pLTRB(50, 150, 10, 0),
+                // ).p(25),
                 ElevatedButton(onPressed: (){
                   Get.to(Scheduler());
                 }, child: "next".text.make(),

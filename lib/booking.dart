@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gen_ai_travel/controllers.dart';
+import 'package:gen_ai_travel/dashboard.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -329,7 +330,7 @@ class _BookState extends State<Book> {
                   ).p(10),
                 ).pLTRB(0, MediaQuery.of(context).size.height*0.02, 0, 0),
               ),
-              ElevatedButton(onPressed: () {}, child: "Next".text.make()),
+              ElevatedButton(onPressed: () {Get.to(MyHomePage(title: "hello",));}, child: "Next".text.make()),
             ],
           ),
         ),

@@ -161,6 +161,7 @@ class _SchedulerState extends State<Scheduler> {
                       child: TableCalendar(
                         
                         // headerVisible: false,
+                        
                         calendarFormat: CalendarFormat.month,
                         rangeSelectionMode: RangeSelectionMode.enforced,
 
@@ -185,6 +186,7 @@ class _SchedulerState extends State<Scheduler> {
                         headerStyle: HeaderStyle(titleCentered: true,
                         titleTextStyle: TextStyle(color: Colors.white,fontSize: 24)),
                         daysOfWeekStyle: DaysOfWeekStyle(
+                        
                           weekdayStyle: TextStyle(color: Colors.white),
                           weekendStyle: TextStyle(color: Colors.white)
                           
@@ -195,14 +197,16 @@ class _SchedulerState extends State<Scheduler> {
                           rangeHighlightColor: Colors.white.withOpacity(0.2),
                           withinRangeTextStyle: TextStyle(color: Colors.white),
                           rangeStartDecoration: BoxDecoration(
+                            // border: Border.all(),
                               color: Colors.blueGrey.withOpacity(0.6),
                               borderRadius: BorderRadius.circular(100)),
                           rangeEndDecoration: BoxDecoration(color: Colors.blueGrey.withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(100)),                          
+                          borderRadius: BorderRadius.circular(100)), 
+                          // tableBorder: TableBorder(borderRadius: BorderRadius.circular(20),)                         
                         ),
                         
                         firstDay: DateTime.utc(2010, 10, 16),
-                        lastDay: DateTime.utc(2030, 3, 14),
+                        lastDay: DateTime.utc(2050, 3, 14),
                         focusedDay: DateTime.now(),
                       ),
                     ),
