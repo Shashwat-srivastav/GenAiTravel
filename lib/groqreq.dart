@@ -162,7 +162,17 @@ class _ReccomendationState extends State<Reccomendation> {
                                       fit: BoxFit.cover
                                   ),
                                   
-                                )),);
+                                ),
+                                child: Column(
+                              children: [
+                                l[x].name.text.make(),
+                                l[x].location.text.make(),
+                                l[x].attract.text.make(),
+                                l[x].desc.text.make(),
+                              ],
+                            ),
+                                )
+                                ,);
 
                 
               });
