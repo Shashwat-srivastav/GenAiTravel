@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gen_ai_travel/APIclasses.dart';
+import 'package:get/get.dart';
 import 'package:groq/groq.dart';
 import "package:http/http.dart" as http;
 import 'package:velocity_x/velocity_x.dart';
@@ -78,6 +80,8 @@ class _ReccomendationState extends State<Reccomendation> {
 //     print(response.body);
 //   }
 
+
+   List<Place> l = [];
   Future req() async{
         print("hey");
     // var r= await http.post(Uri.http("genaitravelbackend.onrender.com","/api/v1/query"),
@@ -87,23 +91,83 @@ class _ReccomendationState extends State<Reccomendation> {
     //     print("1234");
     
 
-    var resp = await http.post(Uri.parse("https://genaitravelbackend.onrender.com/api/v1/query"),body: {"query": "delhi"});
-    print(resp);
-    print(resp.body);
-    print(resp.body[0]);
+    var resp = await http.post(Uri.parse(
+      "http://192.168.8.7:4000/api/v1/query"
+      // "https://genaitravelbackend.onrender.com/api/v1/query"
+      ),body: {"query": "Jaipur"});
+
+    var responseDecoded =jsonDecode(resp.body);
+    //  print(jsonDecode(resp.body)['data']['places'][0]);
+     
+
+     int x= responseDecoded['data']['places'].length;
+
+     print(x);
+     print(responseDecoded['data']['places'][0]["name"]);
+     print(responseDecoded['data']['places'][0]);
+     print(responseDecoded['data']['places'][0]["location"]);
+      print(responseDecoded['data']['places'][0]["description"]);
+       print(responseDecoded['data']['places'][0]["image_link"]);
+        print(responseDecoded['data']['places'][0]["attraction"]);
+        //  print(responseDecoded['data']['places'][0]["childrenAllowed"]);
+    print(responseDecoded['data']['places'][0]["VisitTime"]);
+
+
+       var y= responseDecoded['data']['places'];
+      print(y);
+
+
+        // List<Place> Places =
+        // List.from(y).map<Place>((item) => Place.fromMap(item)).toList();
+        // print(Places);
+  
+   
+    for(int i=0;i<x;i++)
+    {
+       Place p = new Place(name: responseDecoded['data']['places'][i]["name"],
+        location: responseDecoded['data']['places'][i]["location"], 
+        img: responseDecoded['data']['places'][i]["image_link"],
+         desc: responseDecoded['data']['places'][i]["description"],
+          attract: responseDecoded['data']['places'][i]["attraction"],
+           visitTime: responseDecoded['data']['places'][i]["VisitTime"],
+            ChildAllow: responseDecoded['data']['places'][i]["childrenAllowed"]);
+       print(p);
+       l.add(p);
+      //  print(l);
+    }
+
+    // print(l);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      child: FutureBuilder(
+      child: 
+      // ElevatedButton(child: "hey".text.make(), onPressed: ()=> {req()},).centered()
+      
+      FutureBuilder(
           future: req(),
           builder: (BuildContext, AsyncSnapshot) {
-            if (AsyncSnapshot != false) {
-              return ElevatedButton(child: "hey".text.make(), onPressed: ()=> {req()},).centered();
+            if (AsyncSnapshot.connectionState ==ConnectionState.done) {
+              print(l);
+              return GridView.builder(itemCount: l.length,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), itemBuilder: (BuildContext,x){
+                return Card(child: Container(
+                                height: MediaQuery.of(context).size.height * .25,
+                                width: MediaQuery.of(context).size.width * .25,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image:  DecorationImage(
+                                      image: NetworkImage(l[x].img),
+                                      fit: BoxFit.cover
+                                  ),
+                                  
+                                )),);
+
+                
+              });
             } else {
-              return CircularProgressIndicator();
+              return CircularProgressIndicator().centered();
             }
           }),
     ));
