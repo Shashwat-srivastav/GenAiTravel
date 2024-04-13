@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -78,13 +80,17 @@ class _ReccomendationState extends State<Reccomendation> {
 
   Future req() async{
         print("hey");
-    var r= await http.post(Uri.http("genaitravelbackend.onrender.com","/api/v1/query"),
-        body: <String,String>{"query": "Mumbai"});
-    print(r.body);
+    // var r= await http.post(Uri.http("genaitravelbackend.onrender.com","/api/v1/query"),
+    //     body: <String,String>{"query": "Mumbai"});
+    //     var x= jsonDecode(r.body);
+    //     print(x);
+    //     print("1234");
+    
 
-    // var resp = await http.post(Uri.parse("https://genaitravelbackend.onrender.com/api/v1/query"),body: {"query": "delhi"});
-    // print(resp.toString());
-    // print(resp.body);
+    var resp = await http.post(Uri.parse("https://genaitravelbackend.onrender.com/api/v1/query"),body: {"query": "delhi"});
+    print(resp);
+    print(resp.body);
+    print(resp.body[0]);
   }
 
   @override
@@ -103,3 +109,4 @@ class _ReccomendationState extends State<Reccomendation> {
     ));
   }
 }
+/*sdfghkjhjcffgugffhgftgyutyyuttdtretfugutfyyiuihuhfgfh;gi;yfulfhgyyfhhgiyuuyuthgjj*/
