@@ -327,7 +327,7 @@ class _BookState extends State<Book> {
                       ),
                     ),
                   ).p(10),
-                ).pLTRB(0, MediaQuery.of(context).size.height*0.075, 0, 0),
+                ).pLTRB(0, MediaQuery.of(context).size.height*0.02, 0, 0),
               ),
               ElevatedButton(onPressed: () {}, child: "Next".text.make()),
             ],

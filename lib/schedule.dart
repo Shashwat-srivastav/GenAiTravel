@@ -9,9 +9,18 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class Scheduler extends StatelessWidget {
+class Scheduler extends StatefulWidget {
   const Scheduler({super.key});
 
+  @override
+  State<Scheduler> createState() => _SchedulerState();
+}
+
+class _SchedulerState extends State<Scheduler> {
+
+  DateTime rangeStart=DateTime.now();
+  DateTime rangeEnd = DateTime.now();
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: 
@@ -107,7 +116,7 @@ class Scheduler extends StatelessWidget {
                           .color(Colors.white.withOpacity(0.5))
                           .makeCentered()
                           .p(5),
-                      "23 April".text.white.make(),
+                      rangeStart.day.text.white.make(),
                    ],
                  ).pLTRB(0, 0, 40, 0),
                   Column(
@@ -116,7 +125,7 @@ class Scheduler extends StatelessWidget {
                           .text.minFontSize(20)
                           .color(Colors.white.withOpacity(0.5))
                           .makeCentered().p(5),
-                          "23 April".text.white.make(),
+                          rangeEnd.day.text.white.make(),
                     ],
                   ),
               ],
@@ -153,9 +162,27 @@ class Scheduler extends StatelessWidget {
                         
                         // headerVisible: false,
                         calendarFormat: CalendarFormat.month,
+                        rangeSelectionMode: RangeSelectionMode.enforced,
+
+                        //
+                        rangeStartDay: rangeStart,
+                        rangeEndDay: rangeEnd,
+                       //
+                      //  onDayLongPressed: ,
+                      onDaySelected: (selectedDay, focusedDay){
+                        rangeStart=selectedDay;
+                        setState((){
+                          
+                        });
+                      },
+                      onDayLongPressed: (selectedDay, focusedDay){
+                        rangeEnd=selectedDay;
+                        setState((){
+                          
+                        });
+                      },
                       
                         headerStyle: HeaderStyle(titleCentered: true,
-                        
                         titleTextStyle: TextStyle(color: Colors.white,fontSize: 24)),
                         daysOfWeekStyle: DaysOfWeekStyle(
                           weekdayStyle: TextStyle(color: Colors.white),
@@ -163,14 +190,24 @@ class Scheduler extends StatelessWidget {
                           
                         ),
                         
-                        calendarStyle: CalendarStyle(),
+                        calendarStyle: CalendarStyle(
+                          
+                          rangeHighlightColor: Colors.white.withOpacity(0.2),
+                          withinRangeTextStyle: TextStyle(color: Colors.white),
+                          rangeStartDecoration: BoxDecoration(
+                              color: Colors.blueGrey.withOpacity(0.6),
+                              borderRadius: BorderRadius.circular(100)),
+                          rangeEndDecoration: BoxDecoration(color: Colors.blueGrey.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(100)),                          
+                        ),
+                        
                         firstDay: DateTime.utc(2010, 10, 16),
                         lastDay: DateTime.utc(2030, 3, 14),
                         focusedDay: DateTime.now(),
                       ),
                     ),
                   ).p(10),
-               ).pLTRB(0, MediaQuery.of(context).size.height*0.13, 0, 0),
+               ).pLTRB(0, MediaQuery.of(context).size.height*0.075, 0, 0),
                ElevatedButton(onPressed: (){
                 Get.to(Book());
                }, child: "Next".text.make()),

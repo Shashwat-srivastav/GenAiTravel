@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gen_ai_travel/groqreq.dart';
 import 'package:gen_ai_travel/listen.dart';
 import 'package:gen_ai_travel/schedule.dart';
 import 'package:get/get.dart';
@@ -69,14 +70,19 @@ class _HomeTState extends State<HomeT> {
         backgroundColor: Colors.blue[100],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
       ),
-      // bottomNavigationBar: BottomNavigationBar(landscapeLayout: BottomNavigationBarLandscapeLayout.centered,backgroundColor: Color.fromRGBO(21, 27, 35, 1),elevation: 0,items: [BottomNavigationBarItem(icon: Icon(Icons.home),label: "home",tooltip: "hey"),
-      //     BottomNavigationBarItem(icon: Icon(Icons.pin_drop_outlined),label: "pin"),
-      //      BottomNavigationBarItem(
-      //         icon: Icon(Icons.mic_none_outlined), label: "mic"),
-      //         //  BottomNavigationBarItem(
-      //         // icon: Icon(Icons.person_4_sharp), label: "profile"),
-           
-
+      // bottomNavigationBar: BottomNavigationBar(
+      //                  landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+      //                  backgroundColor: Color.fromRGBO(21, 27, 35, 1),
+      //                  elevation: 0,
+      //                  items: [
+      //     BottomNavigationBarItem(
+      //          icon: Icon(Icons.home),label: "home",tooltip: "hey"),
+      //     BottomNavigationBarItem(
+      //          icon: Icon(Icons.pin_drop_outlined),label: "pin"),
+      //     BottomNavigationBarItem(
+      //          icon: Icon(Icons.mic_none_outlined), label: "mic"),
+      //     BottomNavigationBarItem(
+      //          icon: Icon(Icons.person_4_sharp), label: "profile"),
       //   ],),
       body: Stack(
         
@@ -153,7 +159,6 @@ class _HomeTState extends State<HomeT> {
               child: Row(
                 children: [
                   Container(
-                    
                     height: MediaQuery.of(context).size.height*0.40,
                     width: MediaQuery.of(context).size.width*0.45,
                     decoration: BoxDecoration(
@@ -161,7 +166,7 @@ class _HomeTState extends State<HomeT> {
                        gradient: LinearGradient(
                             colors: [
                                Color.fromARGB(255, 137, 125, 169).withOpacity(0.5),
-                              Colors.white.withOpacity(0.5)
+                               Colors.white.withOpacity(0.5)
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter)
@@ -226,7 +231,7 @@ class _HomeTState extends State<HomeT> {
                        
                       ).p(2)
                     ],
-                  ).pLTRB(5, MediaQuery.of(context).size.height*0.52, 5, 0)
+                  ).pLTRB(5, MediaQuery.of(context).size.height*0.53, 5, 0)
                 ],
               ),
             ),

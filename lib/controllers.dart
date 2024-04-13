@@ -1,5 +1,17 @@
 import 'package:get/get.dart';
 
+
+
+
+
+class calenderupdate extends GetxController
+{
+  
+}
+
+
+
+
 // ignore: camel_case_types
 class Schedule extends GetxController
 {
