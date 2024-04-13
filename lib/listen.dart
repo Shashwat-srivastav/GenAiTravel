@@ -15,7 +15,7 @@ class Listening extends StatefulWidget {
 
 class _ListeningState extends State<Listening> {
 
-
+  var Gotit="jaipur";
   final SpeechToText _speechToText = SpeechToText();
    bool _speechEnabled = false;
   String _lastWords = '';
@@ -115,6 +115,7 @@ class _ListeningState extends State<Listening> {
                       
                       // setState(() {
                         _lastWords = value;
+                        Gotit=_lastWords;
                       // });
                     },
                     style: TextStyle(fontSize: 36,fontWeight: FontWeight.w300,color: Colors.white54),
@@ -142,7 +143,7 @@ class _ListeningState extends State<Listening> {
                 //   ).pLTRB(50, 150, 10, 0),
                 // ).p(25),
                 ElevatedButton(onPressed: (){
-                  Get.to(Scheduler());
+                  Get.to(Scheduler(text:Gotit));
                 }, child: "next".text.make(),
                 
                 )

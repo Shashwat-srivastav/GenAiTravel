@@ -1,19 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gen_ai_travel/controllers.dart';
-import 'package:gen_ai_travel/dashboard.dart';
-import 'package:gen_ai_travel/groqreq.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'package:gen_ai_travel/controllers.dart';
+import 'package:gen_ai_travel/dashboard.dart';
+import 'package:gen_ai_travel/groqreq.dart';
+
 class Book extends StatefulWidget {
-  const Book({super.key});
+
+  var text;
+   Book({
+    Key? key,
+  
+    required this.text,
+  }) : super(key: key);
 
   @override
   State<Book> createState() => _BookState();
@@ -331,7 +339,7 @@ class _BookState extends State<Book> {
                   ).p(10),
                 ).pLTRB(0, MediaQuery.of(context).size.height*0.02, 0, 0),
               ),
-              ElevatedButton(onPressed: () {Get.to(Reccomendation()
+              ElevatedButton(onPressed: () {Get.to(Reccomendation(text:widget.text)
                 // MyHomePage(title: "hello",)
                 );}, child: "Next".text.make()),
             ],

@@ -1,22 +1,30 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gen_ai_travel/booking.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'package:gen_ai_travel/booking.dart';
+
 class Scheduler extends StatefulWidget {
-  const Scheduler({super.key});
+  String text;
+   Scheduler({
+    super.key,
+    required this.text,
+  });
 
   @override
   State<Scheduler> createState() => _SchedulerState();
 }
 
 class _SchedulerState extends State<Scheduler> {
+
+  var time=0;
 
   DateTime rangeStart=DateTime.now();
   DateTime rangeEnd = DateTime.now();
@@ -213,7 +221,7 @@ class _SchedulerState extends State<Scheduler> {
                   ).p(10),
                ).pLTRB(0, MediaQuery.of(context).size.height*0.075, 0, 0),
                ElevatedButton(onPressed: (){
-                Get.to(Book());
+                Get.to(Book(text: widget.text));
                }, child: "Next".text.make()),
               ],
             ),
