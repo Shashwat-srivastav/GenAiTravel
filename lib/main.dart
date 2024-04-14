@@ -219,7 +219,7 @@ class _HomeTState extends State<HomeT> {
                           ],
                         ),
                       
-                      ).p(2),
+                      ),
                       Container(
                           height: MediaQuery.of(context).size.height * 0.2,
                         width: MediaQuery.of(context).size.width * 0.49,
@@ -231,7 +231,7 @@ class _HomeTState extends State<HomeT> {
                           begin: Alignment.topCenter,end: Alignment.bottomCenter)
                         ),
                        
-                      ).p(2)
+                      )
                     ],
                   ).pLTRB(5, MediaQuery.of(context).size.height*0.53, 5, 0)
                 ],

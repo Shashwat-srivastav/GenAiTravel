@@ -95,6 +95,14 @@ late EstimateCost cost;
 
    List<String> hotel=[];
    List<Place> l = [];
+  List<String> travelmode = [];
+  List<String> experiences = [];
+ List<DayWise> dw =[];
+  String acc = '';
+  String act = '';
+  String foo = '';
+  String tra = '';
+
   Future req() async{
         print("hey");
     // var r= await http.post(Uri.http("genaitravelbackend.onrender.com","/api/v1/query"),
@@ -114,13 +122,36 @@ late EstimateCost cost;
      
 
      int x= responseDecoded['data']['places'].length;
-     print(responseDecoded['data']['estimatedCost']);
+     print(responseDecoded['data']['dayWiseItinerary']);
+     acc = responseDecoded['data']['estimatedCost']['accomodation'];
+     act = responseDecoded['data']['estimatedCost']['activities'];
+     foo = responseDecoded['data']['estimatedCost']['food'];
+     tra = responseDecoded['data']['estimatedCost']['transport'];
+      var day=responseDecoded['data']['dayWiseItinerary'] ;
+        print(day.length);
+        print(day);
+      for(int i=0;i<day.length;i++)
+        {
+          print(i);
+          print(day[i]['places']);
+          List<String> c=[];
+          for(int j=0;j<day[i]['places'].length;j++)
+            {
+              c.add(day[i]['places'][j]);
+            }
+          print("-----------------");
+          print(day[i]['day']);
+          DayWise d = new DayWise(item: day[i]['day'], places: c);
+          dw.add(d);
+        }
 
-     cost=new EstimateCost(accomodate: responseDecoded['data']['estimatedCost']['accomodate'], activity: responseDecoded['data']['estimatedCost']['activity'], food: responseDecoded['data']['estimatedCost']['food'], transport: responseDecoded['data']['estimatedCost']['transport']);
+
+
+     var cost= EstimateCost(accomodate: responseDecoded['data']['estimatedCost']['accomodation'], activity: responseDecoded['data']['estimatedCost']['activities'], food: responseDecoded['data']['estimatedCost']['food'], transport: responseDecoded['data']['estimatedCost']['transport']);
      print(cost);
     //  print(x);
     //  print(responseDecoded['data']['places'][0]["name"]);
-    //  print(responseDecoded['data']['places'][0]);
+    // print(responseDecoded['data']['places'][0]);
     //  print(responseDecoded['data']['places'][0]["location"]);
     //   print(responseDecoded['data']['places'][0]["description"]);
     //    print(responseDecoded['data']['places'][0]["image_link"]);
@@ -137,9 +168,15 @@ late EstimateCost cost;
       {
           hotel.add(responseDecoded['data']["hotels"][i]);
       }
-       
-       var travelmode =responseDecoded['data']['travel'];
-       print(travelmode);
+        for(int i=0;i<responseDecoded['data']["transport"].length;i++)
+        {
+          travelmode.add(responseDecoded['data']["transport"][i]);
+        }
+        for(int i=0;i<responseDecoded['data']["experiences"].length;i++)
+        {
+          experiences.add(responseDecoded['data']["experiences"][i]);
+        }
+        print(travelmode);
         // List<Place> Places =
         // List.from(y).map<Place>((item) => Place.fromMap(item)).toList();
         // print(Places);
@@ -495,7 +532,7 @@ late EstimateCost cost;
                         Row(
                           children: [
                             Text(
-                              'MY RECOMMENDATIONS',
+                              'TOP ATTRACTIONS',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
@@ -630,78 +667,22 @@ late EstimateCost cost;
               ),
 //---------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
+SizedBox(height: 100),
 
+//--------------------------------------------------------------------------------------------------------------------------------
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height*0.4,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                          child: ListView.builder(itemCount: l.length,itemBuilder: (BuildContext,x){
-                            return Container(
-                              
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 58, 49, 49)
-                                                      .withOpacity(0.5),
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                        bottomRight: Radius.circular(20)
-                                                        ,
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  20))),
-
-                              child: Row(children: [
-                                Container(width: MediaQuery.of(context)
-                                                .size
-                                                .width*0.4,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *0.2
-                                                
-                                  ,child: Image.network(l[x].img,fit: BoxFit.cover,)),
-                                  Column(
-                                    children: [
-                                       Container(width:MediaQuery.of(context)
-                                                .size
-                                                .width*0.4,child: l[x].name.text.white.minFontSize(20).make()).pLTRB(10, 0, 0,50),
-                                       l[x].attract.text.red200.make(),
-                                       l[x].visitTime.text.amber100.make()
-                                    ],
-                                  )
-
-                              ],),
-                            ).p(10);
-                            
-                            
-                            // ListTile(
-                              
-                        
-                            //   leading: 
-                            //      Container(width: MediaQuery.of(context)
-                            //                     .size
-                            //                     .width*0.2,
-                            //                 height: MediaQuery.of(context)
-                            //                         .size
-                            //                         .height *
-                            //                     0.3
-                            //       ,child: Image.network(l[x].img,fit: BoxFit.cover,)),
-                            //   title: l[x].name.text.white.make(),
-                            //   subtitle: l[x].attract.text.white.make(),
-                                                      
-                            // );
-                          }),
-                        ),
-//--------------------------------------------------------------------------------------------------------------------------------
-                        Text(
-                          'Hotel',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                          child: Text(
+                            'HOTELS',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ).p(5),
                         ),
 
                         Container(
-                          height: MediaQuery.of(context).size.height*0.05,
-                          width: MediaQuery.of(context).size.width*0.8,
+                          height : MediaQuery.of(context).size.height*.05,
+                          width: MediaQuery.of(context).size.width*0.95,
                           child: ListView.builder(itemCount: hotel.length,scrollDirection: Axis.horizontal,itemBuilder: (BuildContext,x){
                             return  ElevatedButton(
                                   onPressed: () => {},
@@ -716,68 +697,260 @@ late EstimateCost cost;
                                   )).p(5);
                           }),
                         )
-                        // GridView.builder(itemCount: hotel.length,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1), itemBuilder: (BuildContext,x)
-                        // {
-                        //   return Container(decoration: BoxDecoration(
-                        //     color:Colors.black12,
-                        //     borderRadius: BorderRadius.circular(20)
-                        //   ),
-                        //   child: hotel[0].text.white.make(),
-                          
-                        //   );
-                        // }),
+
 
 //-----------------------------------------------------------------                        
                         //----------------------------------------------------
-                        ,Text(
-                          'Travel Modes',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                        , Container(
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  'TRANSPORT',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ).p(5),
+              ),
+                        Container(
+                          height : MediaQuery.of(context).size.height*.05,
+                          width: MediaQuery.of(context).size.width*0.95,
+                          child: ListView.builder(itemCount: travelmode.length,scrollDirection: Axis.horizontal,itemBuilder: (BuildContext,x){
+                            return  ElevatedButton(
+                                onPressed: () => {},
+                                child: Text(
+                                  travelmode[x],
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                  MaterialStatePropertyAll<Color>(
+                                      Colors.white10),
+                                )).p(5);
+                          }),
                         ),
                         //----------------------------------------------------
-                        Text(
-                          'Experience',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                   Container(
+                  width: MediaQuery.of(context).size.width,
+              child: Text(
+                'EXPERIENCES',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+              ).p(5),
+            ),
+            Container(
+              height : MediaQuery.of(context).size.height*.05,
+              width: MediaQuery.of(context).size.width*0.95,
+              child: ListView.builder(itemCount: experiences.length,scrollDirection: Axis.horizontal,itemBuilder: (BuildContext,x){
+                return  ElevatedButton(
+                    onPressed: () => {},
+                    child: Text(
+                      experiences[x],
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor:
+                      MaterialStatePropertyAll<Color>(
+                          Colors.white10),
+                    )).p(5);
+              }),
+            ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            'ITINERARY',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.amber, fontWeight: FontWeight.bold),
+                          ).p(5),
                         ),
-      
-                        Stack(children: [
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              height: MediaQuery.of(context).size.height * 0.45,
+            Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height*0.45,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),border: Border(
+                            top: BorderSide(width: 2.0, color: Colors.white),
+                            bottom: BorderSide(width: 2.0, color: Colors.white),
+                          )),
+                          child: ListView.builder(itemCount: l.length,itemBuilder: (BuildContext,x){
+                            return Container(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Image.asset("lib/assets/travel1.jpg"),
+                                  color: const Color.fromARGB(255, 58, 49, 49)
+                                      .withOpacity(0.5),
+                                  borderRadius:
+                                  BorderRadius.only(
+                                      bottomRight: Radius.circular(20)
+                                      ,
+                                      topLeft:
+                                      Radius.circular(
+                                          20))),
+
+                              child: Row(children: [
+                                Container(width: MediaQuery.of(context)
+                                    .size
+                                    .width*0.4,
+                                    height: MediaQuery.of(context)
+                                        .size
+                                        .height *0.2
+
+                                    ,child: Image.network(l[x].img,fit: BoxFit.cover,)),
+                                Column(
+                                  children: [
+                                    Container(width:MediaQuery.of(context)
+                                        .size
+                                        .width*0.4,child: l[x].name.text.white.minFontSize(20).make()).pLTRB(10, 0, 0,50),
+                                    Container(width:MediaQuery.of(context)
+                                        .size
+                                        .width*0.4,child: l[x].attract.text.red200.make()),
+                                    Container(width:MediaQuery.of(context)
+                                        .size
+                                        .width*0.4,child: l[x].visitTime.text.amber100.make())
+                                  ],
+                                )
+
+                              ],),
+                            ).p(10);
+
+
+                            // ListTile(
+
+
+                            //   leading:
+                            //      Container(width: MediaQuery.of(context)
+                            //                     .size
+                            //                     .width*0.2,
+                            //                 height: MediaQuery.of(context)
+                            //                         .size
+                            //                         .height *
+                            //                     0.3
+                            //       ,child: Image.network(l[x].img,fit: BoxFit.cover,)),
+                            //   title: l[x].name.text.white.make(),
+                            //   subtitle: l[x].attract.text.white.make(),
+
+                            // );
+                          }),
+                        ),
+                        SizedBox(height: 100),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            'DAYWISE ITINEARY',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ).p(5),
+                        ).p(10),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            height : MediaQuery.of(context).size.height*.30,
+                            width: MediaQuery.of(context).size.width,
+                            //decoration: BoxDecoration(image:DecorationImage(image: AssetImage('lib/assets/DayWiseLine.png'), fit: BoxFit.cover)),
+                            child: ListView.builder(itemCount: dw.length,scrollDirection: Axis.horizontal,itemBuilder: (BuildContext,x){
+                              return  Column(
+                                children: [
+                                  Container(
+                                    height : MediaQuery.of(context).size.height*.1,
+                                    width: MediaQuery.of(context).size.width*.35,
+                                    decoration: BoxDecoration(image:DecorationImage(image: AssetImage('lib/assets/DayLine.png'), fit: BoxFit.cover)),
+                                  ),
+                                  for(int m = 0; m < dw[x].places.length; m++)
+                                    Text('|', style: TextStyle(color: Colors.white, fontSize: 6)),
+                                  for(int m = 0; m < dw[x].places.length; m++)
+                                    Text('|', style: TextStyle(color: Colors.white, fontSize: 6)),
+                                  Container(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    decoration: BoxDecoration(color: Color.fromRGBO(56, 58, 60, 1),
+                                        borderRadius:
+                                        BorderRadius.only(
+                                            bottomRight: Radius.circular(20)
+                                            ,
+                                            topLeft:
+                                            Radius.circular(
+                                                20)),
+                                  ),
+                                    width: MediaQuery.of(context).size.width*.3,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            dw[x].item,
+                                            style: TextStyle(color: Colors.amber),
+                                          ),
+                                          for(var i = 0; i < dw[x].places.length; i++ )
+                                            Text(dw[x].places[i], style: TextStyle(color: Colors.white))
+                                        ],
+                                      ).p(4),
+                                      ).p(5),
+                                ],
+                              );
+                            })
                             ),
-                          ).pLTRB(0, 0, 5, 0),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              height: MediaQuery.of(context).size.height * 0.45,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Image.asset("lib/assets/travel3.jpg"),
-                            ),
-                          ).pLTRB(0, 0, 10, 0),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              height: MediaQuery.of(context).size.height * 0.45,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Image.asset("lib/assets/travel2.jpg",
-                                  fit: BoxFit.cover),
-                            ),
-                          ).pLTRB(0, 0, 15, 0),
-                        ]),
-      ////-------------------------------------------------------------------------------------------
+                        ),
+                        ////--
+                        SizedBox(height: 50),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            'ESTIMATED COSTS',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ).p(5),
+                        ).p(10),
+                        Container(
+                          width: MediaQuery.of(context)
+                            .size
+                            .width*0.9,
+                          decoration : BoxDecoration(color: Colors.white10,borderRadius:  BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20) ),border: Border(
+                          left: BorderSide(width: 1.0, color: Colors.white),
+                          right: BorderSide(width: 1.0, color: Colors.white),)),
+                            child:Column(
+                          children :[
+                            Row(
+                                children : [
+                                  Text("Accomodation", style: TextStyle(color: Colors.white)),
+                                  Spacer(),
+                                  Text(acc, style: TextStyle(color: Colors.white))
+                                ]
+                            ).p(3),
+                            Row(
+                                children : [
+                                  Text("Activities", style: TextStyle(color: Colors.white)),
+                                  Spacer(),
+                                  Text(act, style: TextStyle(color: Colors.white))
+                                ]
+                            ).p(3),
+                            Row(
+                                children : [
+                                  Text("Food", style: TextStyle(color: Colors.white)),
+                                  Spacer(),
+                                  Text(foo, style: TextStyle(color: Colors.white))
+                                ]
+                            ).p(3),
+                            Row(
+                                children : [
+                                  Text("Travel", style: TextStyle(color: Colors.white)),
+                                  Spacer(),
+                                  Text(tra, style: TextStyle(color: Colors.white))
+                                ]
+                            ).p(3),
+                          ]
+                        ).p(10)
+                        ),
+                        ////-------------------------------------------------------------------------------------------
                         SizedBox(
                           height: 100,
                         ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            'HISTORY',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ).p(5),
+                        ).p(10),
+
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(children: [
@@ -1123,7 +1296,7 @@ late EstimateCost cost;
                           ]),
                         ),
                         SizedBox(
-                          height: 800,
+                          height: 50,
                         )
                       ],
                     )
