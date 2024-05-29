@@ -1,4 +1,4 @@
-# gen_ai_travel
+# Gen_ai_travel
 
 A new Flutter project.
 
