@@ -103,7 +103,11 @@ Users can customize their itinerary by adjusting preferences such as:
 
 
 
-https://github.com/Shashwat-srivastav/GenAiTravel/assets/37861820/1a6a0813-0c5b-4bd0-91a8-4e4a5f8a3e38
+
+https://github.com/Shashwat-srivastav/GenAiTravel/assets/37861820/fc82df38-21ca-42af-af94-561af2bac685
+
+
+
 
 
 
